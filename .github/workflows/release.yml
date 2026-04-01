@@ -22,11 +22,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Windows application
-        run: npm run build:win
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Install nbc-auto-changelog
         run: npm install -g nbc-auto-changelog
 
@@ -34,19 +29,11 @@ jobs:
         id: changelog
         shell: pwsh
         run: |
-          nbc-auto-changelog --stdout --ending-version ${{ github.ref_name }} --starting-version ${{ github.ref_name }} | Out-File -FilePath ./changelog_new.txt -Encoding UTF8
+          nbc-auto-changelog --stdout --ending-version ${{ github.ref_name }} --starting-version ${{ github.ref_name }} | Out-File -FilePath .out/build release-notes.md -Encoding UTF8
 
-      - name: Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v2
+      - name: Build Windows application
+        run: npm run build:win
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: "AI ${{ github.ref_name }} maybe"
-          body: "awdawd"
-          #          body_path: ./changelog_new.txt
-#          files: |
-#            ./.out/dist/*.exe
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
