@@ -21,11 +21,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      #      - name: Get CHANGELOG.md content
-      #        id: changelog
-      #        shell: pwsh
-      #        run: |
-      #          nbc-auto-changelog --stdout --ending-version ${{ github.ref_name }} --starting-version ${{ github.ref_name }} | Out-File -FilePath ./changelog_new.txt -Encoding GBK
+      - name: Get CHANGELOG.md content
+        id: changelog
+        shell: pwsh
+        run: |
+          nbc-auto-changelog --stdout --ending-version ${{ github.ref_name }} --starting-version ${{ github.ref_name }} | Out-File -FilePath ./changelog_new.txt -Encoding GBK
 
       - name: Create Release
         id: create_release
@@ -36,6 +36,7 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: "AI ${{ github.ref_name }} maybe"
           body: "awdawd"
+          body_path: ./changelog_new.txt
           #          body_path: ./changelog_new.txt
           files: |
             ./a.js
