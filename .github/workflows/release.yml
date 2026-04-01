@@ -46,7 +46,7 @@ jobs:
           name: "AI ${{ github.ref_name }} maybe"
           body: "awdawd"
           #          body_path: ./changelog_new.txt
-          files: |
-            ./.out/dist/*.exe
+#          files: |
+#            ./.out/dist/*.exe
 
 
