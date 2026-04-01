@@ -13,10 +13,19 @@ jobs:
     runs-on: windows-latest
 
     steps:
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Windows application
+        run: npm build:win
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install nbc-auto-changelog
         run: npm install -g nbc-auto-changelog
@@ -36,9 +45,8 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: "AI ${{ github.ref_name }} maybe"
           body: "awdawd"
-          body_path: ./changelog_new.txt
           #          body_path: ./changelog_new.txt
           files: |
-            ./a.js
+            ./.out/dist/*.exe
 
 
