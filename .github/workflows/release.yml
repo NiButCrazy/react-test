@@ -25,7 +25,7 @@ jobs:
         id: changelog
         shell: pwsh
         run: |
-          nbc-auto-changelog --stdout --ending-version ${{ github.ref_name }} --starting-version ${{ github.ref_name }} | Out-File -FilePath ./changelog_new.txt -Encoding GBK
+          nbc-auto-changelog --stdout --ending-version ${{ github.ref_name }} --starting-version ${{ github.ref_name }} | Out-File -FilePath ./changelog_new.txt -Encoding UTF8
 
       - name: Create Release
         id: create_release
