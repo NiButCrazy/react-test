@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Build Windows application
-        run: npm build:win
+        run: npm run build:win
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
