@@ -29,7 +29,7 @@ jobs:
         id: changelog
         shell: pwsh
         run: |
-          nbc-auto-changelog --stdout --ending-version ${{ github.ref_name }} --starting-version ${{ github.ref_name }} | Out-File -FilePath .out/build/release-notes.md -Encoding UTF8
+          nbc-auto-changelog --stdout --ending-version ${{ github.ref_name }} --starting-version ${{ github.ref_name }} | Out-File -FilePath release-notes.md -Encoding UTF8
 
       - name: Build Windows application
         run: npm run build:win

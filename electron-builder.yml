@@ -49,3 +49,4 @@ electronDownload:
 releaseInfo:
   releaseName: ${productName}
   releaseNotes: "ddwdwawdadwadad"
+  releaseNotesFile: "./release-notes.md"
