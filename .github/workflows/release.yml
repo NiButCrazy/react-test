@@ -31,13 +31,20 @@ jobs:
         run: |
           nbc-auto-changelog --stdout --ending-version ${{ github.ref_name }} --starting-version ${{ github.ref_name }} | Out-File -FilePath release-notes.md -Encoding UTF8
 
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "AI ${{ github.ref_name }} maybe"
+          body: "你好"
+          body_path: release-notes.md
+
       - name: Build Windows application
         run: npm run build:win
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: release application
-        run: npm run release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
