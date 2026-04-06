@@ -22,9 +22,14 @@ jobs:
       - name: Set up git-cliff
         uses: kenji-miyake/setup-git-cliff@v1
 
-      - name: Get CHANGELOG_NEW.md
-        id: changelog
-        run: git cliff --latest -o CHANGELOG_NEW.md
+      - name: Generate a changelog
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          args: --verbose
+        env:
+          OUTPUT: CHANGELOG_NEW.md
+          GITHUB_REPO: ${{ github.repository }}
 
       - name: Add changelog to release
         uses: softprops/action-gh-release@v2
