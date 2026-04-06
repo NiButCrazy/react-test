@@ -42,9 +42,9 @@ jobs:
           body: "你好"
           body_path: release-notes.md
 
-      - name: Build Windows application
-        run: npm run build:win
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Build Windows application
+#        run: npm run build:win
+#        env:
+#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
