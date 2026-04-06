@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   release:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
 
@@ -19,28 +19,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install dependencies
-        run: npm install
+      - name: Set up git-cliff
+        uses: kenji-miyake/setup-git-cliff@v1
 
-      - name: Install nbc-auto-changelog
-        run: npm install -g nbc-auto-changelog
-
-      - name: Get CHANGELOG.md content
+      - name: Get CHANGELOG_NEW.md
         id: changelog
-        shell: pwsh
-        run: |
-          nbc-auto-changelog --stdout --ending-version ${{ github.ref_name }} --starting-version ${{ github.ref_name }} | Out-File -FilePath release-notes.md -Encoding UTF8
+        run: git cliff \
+          --config-url https://raw.githubusercontent.com/NiButCrazy/nbc-auto-changelog/master/cliff.toml \
+          --latest -o CHANGELOG_NEW.md
 
-      - name: Create Release
-        id: create_release
+      - name: Add changelog to release
         uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.release.tag_name }}
+          body_path: CHANGELOG_NEW.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: "AI ${{ github.ref_name }} maybe"
-          body: "你好"
-          body_path: release-notes.md
 
 #      - name: Build Windows application
 #        run: npm run build:win
