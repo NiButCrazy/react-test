@@ -1,3 +1,14 @@
+## [unreleased]
+
+### :zap: 性能
+
+- 性能改进([#1](https://github.com/NiButCrazy/react-test/issues/1)) - ([8c1f379](https://github.com/NiButCrazy/react-test/commit/8c1f379a7fa8074ccf0411f9db2602751cf39e2d))
+
+### :globe_with_meridians: 国际化
+
+- 国际化 - ([ba98263](https://github.com/NiButCrazy/react-test/commit/ba98263df8c42af3b71f932da73ff05fa1db6bc8))
+
+
 ## [0.0.21](https://github.com/NiButCrazy/react-test/compare/v0.0.20..v0.0.21) - 2026-04-01
 
 ### :sparkles: 新功能
