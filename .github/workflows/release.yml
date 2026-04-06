@@ -24,8 +24,8 @@ jobs:
 
       - name: Get CHANGELOG_NEW.md
         id: changelog
-        run: git cliff \
-          --config-url https://raw.githubusercontent.com/NiButCrazy/nbc-auto-changelog/master/cliff.toml \
+        run: git cliff
+          --config-url https://raw.githubusercontent.com/NiButCrazy/nbc-auto-changelog/master/cliff.toml
           --latest -o CHANGELOG_NEW.md
 
       - name: Add changelog to release
