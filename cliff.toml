@@ -16,9 +16,10 @@ body = """
 
 {% macro print_commit(commit) -%}
     - {% if commit.scope %}*({{ commit.scope }})* {% endif %}\
-        {% if commit.breaking %}[**breaking**] {% endif %}\
-        {{ commit.message | replace(from="<REPO>", to=self::remote_url()) | upper_first }} - \
-        ([{{ commit.id | truncate(length=7, end="") }}]({{ self::remote_url() }}/commit/{{ commit.id }}))\
+        {% if commit.breaking %}:rotating_light:[**破坏性改动**] {% endif %}\
+        {{ commit.message | replace(from="<REPO>", to=self::remote_url()) | upper_first }} -\
+         {% if commit.remote.username %} by @{{ commit.remote.username }}{%- endif %} \
+        [({{ commit.id | truncate(length=7, end="") }})]({{ self::remote_url() }}/commit/{{ commit.id }})\
 {% endmacro -%}
 
 {% if version %}\
@@ -97,7 +98,6 @@ commit_preprocessors = [
 # 将 commit 分配到不同的分组。
 # 可选地设置 commit 的范围，并可决定是否将 commit 排除在后续处理之外。
 commit_parsers = [
-    # Skip commits without a scope, except breaking changes (e.g., "feat!: xxx")
     { message = "^feat", group = "<!-- 0 -->:sparkles: 新功能" },
     { message = "^fix", group = "<!-- 1 -->:bug: 修复" },
     { message = "^improve|^imp", group = "<!-- 4 -->:fire: 优化" },
@@ -114,7 +114,7 @@ commit_parsers = [
     { message = "^chore\\(pull\\)", skip = true },
     { message = "^chore\\(npm\\).*yarn\\.lock", skip = true },
     { message = "^chore", group = "<!-- 7 -->:package: 杂项" },
-    { message = "^ci", group = "<!-- 7 -->hammer: CI / CD" },
+    { message = "^ci", group = "<!-- 7 -->:hammer: 工作流" },
     { message = "^i18n", group = "<!-- 8 -->:globe_with_meridians: 国际化" },
     { message = "^revert", group = "<!-- 9 -->:rewind: 回退" },
 ]
@@ -127,7 +127,7 @@ tag_pattern = "v[0-9].*"
 # Regex to select git tags that do not represent proper releases.
 # Takes precedence over `tag_pattern`.
 # Changes belonging to these releases will be included in the next release.
-skip_tags = "beta|alpha"
+#skip_tags = "beta|alpha"
 # Regex to exclude git tags after applying the tag_pattern.
 #ignore_tags = "rc|v2.1.0|v2.1.1"
 # Order releases topologically instead of chronologically.
